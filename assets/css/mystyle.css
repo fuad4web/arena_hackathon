@@ -1,0 +1,29 @@
+.pcoded-inner-content .page-body .card-block form {
+     position: relative;
+}
+
+.pcoded-inner-content .page-body .card-block form .search-list {
+     position: absolute;
+     margin-top: -42px;
+     margin-left: 15px;
+     z-index: 100000000000;
+}
+
+.pcoded-inner-content .page-body .card-block form .search-list ul {
+     width: 200px;
+     height: 140px;
+     overflow-y: scroll;
+     text-align: center;
+     background-color: rgb(247, 243, 243);
+}
+
+.pcoded-inner-content .page-body .card-block form .search-list ul li {
+     font-size: 17px;
+     color: #000;
+     padding: 5px 0;
+}
+
+.pcoded-inner-content .page-body .card-block form .search-list ul li:hover {
+     cursor: pointer;
+     background-color: rgb(180, 175, 175);
+}
