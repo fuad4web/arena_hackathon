@@ -2,6 +2,32 @@
      include 'elements/header.php';
 ?>
 
+<style>
+     #my_table {
+     border-radius: 12px;
+     overflow: hidden;
+     background: #fff;
+     }
+
+     #my_table tbody tr {
+     transition: all .2s ease;
+     }
+
+     #my_table tbody tr:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 3px 10px rgba(0,0,0,.08);
+     }
+
+     #my_table .btn-group .btn {
+     margin: 0 2px;
+     border-radius: 8px;
+     }
+
+     #my_table img {
+     border: 2px solid #f1f1f1;
+     }
+</style>
+
 <div class="pcoded-main-container">
      <div class="pcoded-wrapper">
 
@@ -58,67 +84,107 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                              <div class="table-responsive">
-                                                  <table class="table table-striped text-dark" id="my_table">
-                                                       <thead class="">
+                                                  <table class="table table-hover align-middle" id="my_table">
+                                                       <thead class="table-dark">
                                                             <tr>
-                                                                 <th>S/N</th>
-                                                                 <th>Fullname</th>
+                                                                 <th>#</th>
+                                                                 <th>Staff</th>
                                                                  <th>Email</th>
                                                                  <th>Branch</th>
-                                                                 <th>Profile Picture</th>
-                                                                 <?php if ($getFromU->hasAccess($user_id, 'delete_member')): ?>
-                                                                 <th>Delete</th>
-                                                                 <?php endif; ?>
-                                                                 <?php if ($getFromU->hasAccess($user_id, 'access')): ?>
-                                                                 <th>Access</th>
-                                                                 <?php endif; ?>
-                                                                 <?php if ($getFromU->hasAccess($user_id, 'edit_page')): ?>
-                                                                 <th>Pages Access</th>
+
+                                                                 <?php if ($getFromU->hasAccess($user_id, 'delete_member') || $getFromU->hasAccess($user_id, 'access') || $getFromU->hasAccess($user_id, 'edit_page')): ?>
+                                                                      <th class="text-center">Actions</th>
                                                                  <?php endif; ?>
                                                             </tr>
                                                        </thead>
-                                                       <tbody>
 
+                                                       <tbody>
                                                             <?php
                                                             $i = 0;
-                                                            foreach ($selectBranchStaffs as $selectStaff) {
+                                                            foreach ($selectBranchStaffs as $selectStaff):
                                                                  $i++;
                                                             ?>
                                                                  <tr>
-                                                                      <th scope="row"><?= $i ?></th>
-                                                                      <td><?= ucwords($selectStaff?->fullname) ?></td>
-                                                                      <td><?= $selectStaff?->email ?></td>
-                                                                      <td><?= ucwords($selectStaff?->branch_name) ?></td>
+
                                                                       <td>
-                                                                           <img src="<?= $selectStaff?->profile_pics ?>" style="border-radius: 50%;" class="border-rounded" width="40" height="40" alt="<?= $selectStaff?->fullname ?>">
+                                                                      <span class="fw-bold"><?= $i ?></span>
                                                                       </td>
-                                                                      <?php if ($getFromU->hasAccess($user_id, 'delete_member')): ?>
+
                                                                       <td>
-                                                                           <a href="./delete_member.php?codes=<?= $selectStaff?->email ?>">
-                                                                                <input type="button" value="Delete" class="btn btn-danger">
-                                                                           </a>
+                                                                      <div class="d-flex align-items-center">
+                                                                           <img src="<?= $selectStaff?->profile_pics ?>"
+                                                                                width="50"
+                                                                                height="50"
+                                                                                class="rounded-circle border shadow-sm me-3"
+                                                                                style="object-fit: cover;"
+                                                                                alt="<?= $selectStaff?->fullname ?>">
+
+                                                                           <div>
+                                                                                <div class="fw-semibold">
+                                                                                     <?= ucwords($selectStaff?->fullname) ?>
+                                                                                </div>
+
+                                                                                <small class="text-muted">
+                                                                                     <?= $selectStaff?->access
+                                                                                          ? '<span class="badge bg-success">Active</span>'
+                                                                                          : '<span class="badge bg-danger">Inactive</span>' ?>
+                                                                                </small>
+                                                                           </div>
+                                                                      </div>
                                                                       </td>
+
+                                                                      <td>
+                                                                      <?= $selectStaff?->email ?>
+                                                                      </td>
+
+                                                                      <td>
+                                                                      <span class="badge bg-primary">
+                                                                           <?= ucwords($selectStaff?->branch_name) ?>
+                                                                      </span>
+                                                                      </td>
+
+                                                                      <?php if ($getFromU->hasAccess($user_id, 'delete_member') || $getFromU->hasAccess($user_id, 'access') || $getFromU->hasAccess($user_id, 'edit_page')): ?>
+
+                                                                      <td class="text-center">
+
+                                                                           <div class="btn-group">
+
+                                                                                <?php if ($getFromU->hasAccess($user_id, 'access')): ?>
+                                                                                     <a href="./validation/access.php?user=<?= $selectStaff?->email ?>"
+                                                                                     class="btn btn-sm <?= $selectStaff?->access ? 'btn-warning' : 'btn-success' ?>"
+                                                                                     title="<?= $selectStaff?->access ? 'Deactivate' : 'Activate' ?>">
+
+                                                                                          <i class="fa <?= $selectStaff?->access ? 'fa-ban' : 'fa-check' ?>"></i>
+                                                                                     </a>
+                                                                                <?php endif; ?>
+
+                                                                                <?php if ($getFromU->hasAccess($user_id, 'edit_page')): ?>
+                                                                                     <a href="./edit_page?codes=<?= $selectStaff?->email ?>"
+                                                                                     class="btn btn-sm btn-info text-white"
+                                                                                     title="Edit Access">
+
+                                                                                          <i class="fa fa-wrench"></i>
+                                                                                     </a>
+                                                                                <?php endif; ?>
+
+                                                                                <?php if ($getFromU->hasAccess($user_id, 'delete_member')): ?>
+                                                                                     <a href="./delete_member.php?codes=<?= $selectStaff?->email ?>"
+                                                                                     class="btn btn-sm btn-danger"
+                                                                                     title="Delete">
+
+                                                                                          <i class="fa fa-trash"></i>
+                                                                                     </a>
+                                                                                <?php endif; ?>
+
+                                                                           </div>
+
+                                                                      </td>
+
                                                                       <?php endif; ?>
-                                                                      <?php if ($getFromU->hasAccess($user_id, 'access')): ?>
-                                                                      <td>
-                                                                           <a href="./validation/access.php?user=<?= $selectStaff?->email ?>">
-                                                                                <input type="button" value="<?php if ($selectStaff?->access == true) { ?>Deactivate <?php } else { ?> Activate <?php } ?>" class="btn btn-outline-info">
-                                                                           </a>
-                                                                      </td>
-                                                                      <?php endif; ?>
-                                                                      <?php if ($getFromU->hasAccess($user_id, 'edit_page')): ?>
-                                                                      <td>
-                                                                           <ul class="d-flex justify-content-evenly">
-                                                                                <a href="./edit_page?codes=<?= $selectStaff?->email ?>" title="Edit">
-                                                                                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                                                                </a>
-                                                                           </ul>
-                                                                      </td>
-                                                                      <?php endif; ?>
+
                                                                  </tr>
-                                                            <?php
-                                                            }
-                                                            ?>
+
+                                                            <?php endforeach; ?>
                                                        </tbody>
                                                   </table>
                                              </div>

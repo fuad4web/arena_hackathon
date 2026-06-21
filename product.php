@@ -39,24 +39,21 @@ include 'elements/header.php';
                          <div class="page-wrapper">
                               <div class="page-body">
                                    <?php
-                                   echo SuccessMessage();
-                                   echo ErrorMessage();
+                                        echo SuccessMessage();
+                                        echo ErrorMessage();
                                    ?>
                                    <div class="card text-info">
                                         <div class="card-header">
                                              <h5>Products</h5>
                                              <span>List of all Products</span>
-                                             <div class="card-header-right">
+                                             <div class="card-header-right d-flex gap-2">
+                                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productFilterModal">
+                                                       <i class="fa fa-filter"></i> Filter Products
+                                                  </button>
+
                                                   <a href="create_product">
                                                        <input type="button" name="branch" class="btn btn-success" value="Create Product">
                                                   </a>
-                                                  <!-- <ul class="list-unstyled card-option">
-                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>
-                                                        <li><i class="fa fa-window-maximize full-card"></i></li>
-                                                        <li><i class="fa fa-minus minimize-card"></i></li>
-                                                        <li><i class="fa fa-refresh reload-card"></i></li>
-                                                        <li><i class="fa fa-trash close-card"></i></li>
-                                                    </ul> -->
                                              </div>
                                         </div>
                                         <div class="list-products-page">
@@ -99,7 +96,17 @@ include 'elements/header.php';
                                                        $product_distributor = $getFromU->select_one_val('distributors', 'name', 'id', $selectProduct?->distributor);
                                                        $branchName = $getFromU->select_one_val('branches', 'branch_name', 'id', $selectProduct?->branch_id);
                                                   ?>
-                                                  <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
+                                                  <div class="col-xl-4 col-lg-6 col-md-6 mb-4 product-item"
+                                                       data-name="<?= strtolower($selectProduct?->name) ?>"
+                                                       data-barcode="<?= strtolower($selectProduct?->barcode ?? '') ?>"
+                                                       data-branch="<?= strtolower($branchName) ?>"
+                                                       data-category="<?= strtolower($product_category) ?>"
+                                                       data-distributor="<?= strtolower($product_distributor) ?>"
+                                                       data-status="<?= ($selectProduct?->status === 0) ? 'active' : 'inactive' ?>"
+                                                       data-price="<?= $selectProduct?->price ?>"
+                                                       data-retail="<?= $selectProduct?->special_price ?>"
+                                                       data-wholesale="<?= $selectProduct?->market_price ?>"
+                                                  >
                                                        <div class="card product-card h-100 shadow-sm">
                                                             <!-- Card Header with Image and Status -->
                                                             <div class="card-header position-relative bg-transparent border-bottom-0 pb-0">
@@ -228,6 +235,177 @@ include 'elements/header.php';
 </div>
 </div>
 
+     <div class="modal fade" id="productFilterModal" tabindex="-1" role="dialog" aria-labelledby="productFilterModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+               <div class="modal-header">
+                    <h5 class="modal-title">Filter Products</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+               </div>
+
+               <div class="modal-body">
+
+                    <div class="row">
+
+                         <div class="col-md-6 mb-3">
+                         <label>Product Name</label>
+                         <input type="text" class="form-control" id="filterName">
+                         </div>
+
+                         <div class="col-md-6 mb-3">
+                         <label>Barcode</label>
+                         <input type="text" class="form-control" id="filterBarcode">
+                         </div>
+
+                         <div class="col-md-6 mb-3">
+                         <label>Branch</label>
+                         <!-- <input type="text" class="form-control" id="filterBranch"> -->
+                         <select name="branch_id" class="form-control enhanced-select" id="filterBranch">
+                              <option value="">Choose Branch</option>
+                              <?php foreach ($selectBranches as $selectBranches): ?>
+                                   <option value="<?= $selectBranches->branch_name ?>"><?= ucwords($selectBranches->branch_name) ?></option>
+                              <?php endforeach; ?>
+                         </select>
+                         </div>
+
+                         <div class="col-md-6 mb-3">
+                         <label>Category</label>
+                         <!-- <input type="text" class="form-control" id="filterCategory"> -->
+                         <select name="category" class="form-control enhanced-select" id="filterCategory">
+                              <option value="">Select Category</option>
+                              <?php foreach ($selectCategories as $selectCategory): ?>
+                                   <option value="<?= $selectCategory->name ?>"><?= $selectCategory->name ?></option>
+                              <?php endforeach; ?>
+                         </select>
+                         </div>
+
+                         <div class="col-md-6 mb-3">
+                              <label>Distributor</label>
+                              <!-- <input type="text" class="form-control" id="filterDistributor"> -->
+                              <select name="distributor" class="form-control enhanced-select" id="filterDistributor">
+                                   <option value="">Select Distributor</option>
+                                   <?php foreach ($selectDistributors as $selectDistributor): ?>
+                                        <option value="<?= $selectDistributor->name ?>"><?= ucwords($selectDistributor->name) ?></option>
+                                   <?php endforeach; ?>
+                              </select>
+                         </div>
+
+                         <div class="col-md-6 mb-3">
+                         <label>Status</label>
+                         <select class="form-control" id="filterStatus">
+                              <option value="">All</option>
+                              <option value="active">Active</option>
+                              <option value="inactive">Inactive</option>
+                         </select>
+                         </div>
+
+                         <div class="col-md-4 mb-3">
+                         <label>Regular Price Min</label>
+                         <input type="number" class="form-control" id="minPrice">
+                         </div>
+
+                         <div class="col-md-4 mb-3">
+                         <label>Retail Price Min</label>
+                         <input type="number" class="form-control" id="minRetail">
+                         </div>
+
+                         <div class="col-md-4 mb-3">
+                         <label>Wholesale Price Min</label>
+                         <input type="number" class="form-control" id="minWholesale">
+                         </div>
+
+                    </div>
+
+               </div>
+
+               <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary resetFilters">
+                         Reset
+                    </button>
+
+                    <button type="button" class="btn btn-primary applyFilters">
+                         Apply Filters
+                    </button>
+               </div>
+
+          </div>
+     </div>
+     </div>
+
 <?php
-include 'elements/footer.php';
+     include 'elements/footer.php';
 ?>
+<script>
+     $(document).ready(function(){
+          $('.applyFilters').on('click', function(){
+               let name = $('#filterName').val().toLowerCase();
+               let barcode = $('#filterBarcode').val().toLowerCase();
+               let branch = $('#filterBranch').val().toLowerCase();
+               let category = $('#filterCategory').val().toLowerCase();
+               let distributor = $('#filterDistributor').val().toLowerCase();
+               let status = $('#filterStatus').val();
+
+               let minPrice = parseFloat($('#minPrice').val()) || 0;
+               let minRetail = parseFloat($('#minRetail').val()) || 0;
+               let minWholesale = parseFloat($('#minWholesale').val()) || 0;
+
+               $('.product-item').each(function(){
+
+                    let product = $(this);
+
+                    let show = true;
+
+                    let pName = product.data('name').toString();
+                    let pBarcode = product.data('barcode').toString();
+                    let pBranch = product.data('branch').toString();
+                    let pCategory = product.data('category').toString();
+                    let pDistributor = product.data('distributor').toString();
+                    let pStatus = product.data('status').toString();
+
+                    let pPrice = parseFloat(product.data('price'));
+                    let pRetail = parseFloat(product.data('retail'));
+                    let pWholesale = parseFloat(product.data('wholesale'));
+
+                    if(name && !pName.includes(name))
+                         show = false;
+
+                    if(barcode && !pBarcode.includes(barcode))
+                         show = false;
+
+                    if(branch && !pBranch.includes(branch))
+                         show = false;
+
+                    if(category && !pCategory.includes(category))
+                         show = false;
+
+                    if(distributor && !pDistributor.includes(distributor))
+                         show = false;
+
+                    if(status && pStatus !== status)
+                         show = false;
+
+                    if(pPrice < minPrice)
+                         show = false;
+
+                    if(pRetail < minRetail)
+                         show = false;
+
+                    if(pWholesale < minWholesale)
+                         show = false;
+
+                    product.toggle(show);
+
+               });
+
+               $('#productFilterModal').modal('hide');
+          });
+
+          $('.resetFilters').on('click', function(){
+               $('#productFilterModal input').val('');
+               $('#productFilterModal select').val('');
+
+               $('.product-item').show();
+          });
+     });
+</script>
