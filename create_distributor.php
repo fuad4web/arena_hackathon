@@ -92,7 +92,7 @@ include 'elements/header.php';
                                                        </div>
                                                        <div class="col-md-6">
                                                             <div class="form-group form-default form-static-label">
-                                                                 <textarea name="address" id="" class="form-control" cols="30" rows="10" required></textarea>
+                                                                 <textarea name="address" id="" class="form-control" cols="30" rows="10"></textarea>
                                                                  <span class="form-bar"></span>
                                                                  <label class="float-label">Company Location</label>
                                                             </div>

@@ -690,6 +690,26 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
+
+        public function fetch_innerjoin_limit_desc_new($first_table, $second_table, $initial_id)
+        {
+            $stmt = $this->pdo->prepare("
+                SELECT *
+                FROM `$first_table` AS a
+                INNER JOIN `$second_table` AS b
+                    ON (
+                        a.`$initial_id` = b.id
+                        OR
+                        a.`$initial_id` = b.phone_number
+                    )
+                ORDER BY a.id DESC
+                LIMIT 250
+            ");
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
         
         // fetching with inner join with no condition descending order
         public function fetch_innerjoin_desc($first_table, $second_table, $initial_id) {
@@ -703,6 +723,27 @@
             $stmt = $this->pdo->prepare("SELECT * FROM `$first_table` AS a INNER JOIN `$second_table` AS b ON `$initial_id` = b.id WHERE `$column` = :keyword ORDER BY a.id DESC");
             $stmt->bindParam(":keyword", $keyword, PDO::PARAM_STR);
             $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+
+        public function fetch_innerjoin_one_cond_new($first_table, $second_table, $initial_id, $column, $keyword)
+        {
+            $stmt = $this->pdo->prepare("
+                SELECT *
+                FROM `$first_table` a
+                INNER JOIN `$second_table` b
+                    ON (
+                        a.`$initial_id` = b.id
+                        OR
+                        a.`$initial_id` = b.phone_number
+                    )
+                WHERE a.`$column` = :keyword
+                ORDER BY a.id DESC
+            ");
+
+            $stmt->bindParam(':keyword', $keyword);
+            $stmt->execute();
+
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
         
@@ -770,6 +811,42 @@
             $stmt->bindParam(":firstCol", $first_value, PDO::PARAM_STR);
             $stmt->bindParam(":secondCol", $second_value, PDO::PARAM_STR);
             $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+
+        public function fetch_innerjoin_btw_values_record(
+            $first_table,
+            $second_table,
+            $initial_id,
+            $first_value,
+            $second_value,
+            $third_table
+        ) {
+
+            $stmt = $this->pdo->prepare("
+                SELECT *
+                FROM `$first_table` a
+
+                INNER JOIN `$second_table` b
+                    ON a.`$initial_id` = b.id
+
+                INNER JOIN `$third_table` c
+                    ON (
+                        a.customer_id = c.id
+                        OR
+                        a.customer_id = c.phone_number
+                    )
+
+                WHERE a.created_at BETWEEN :firstCol AND :secondCol
+
+                ORDER BY a.created_at DESC
+            ");
+
+            $stmt->bindParam(":firstCol", $first_value, PDO::PARAM_STR);
+            $stmt->bindParam(":secondCol", $second_value, PDO::PARAM_STR);
+
+            $stmt->execute();
+
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
 

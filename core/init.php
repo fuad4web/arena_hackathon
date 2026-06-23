@@ -14,7 +14,7 @@
     define("CLOUDINARY_API_KEY", "897453696266978");
     define("CLOUDINARY_API_SECRET", "9c5IusyEnZqtWY3o-9eYoJCTKc8"); // adoxzy89@gmail.com
 
-    define("BASE_URL", "http://localhost/rahtop/");
+    define("BASE_URL", "http://localhost/vision/");
     date_default_timezone_set("Africa/Lagos");
 
     function SuccessMessage() {

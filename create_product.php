@@ -89,9 +89,9 @@ include 'elements/header.php';
                                                             <!-- Pricing Section -->
                                                             <div class="col-md-4">
                                                                  <div class="form-group form-default form-static-label enhanced-form-group">
-                                                                 <input type="number" step="any" name="price" class="form-control enhanced-input" placeholder="Enter Product Price" required>
+                                                                 <input type="number" step="any" name="price" class="form-control enhanced-input" placeholder="Enter Selling Price" required>
                                                                  <span class="form-bar"></span>
-                                                                 <label class="float-label">Product Price</label>
+                                                                 <label class="float-label">Selling Price</label>
                                                                  <div class="form-icon">
                                                                       <i class="fas fa-tag"></i>
                                                                  </div>
@@ -100,22 +100,22 @@ include 'elements/header.php';
 
                                                             <div class="col-md-4">
                                                                  <div class="form-group form-default form-static-label enhanced-form-group">
-                                                                 <input type="number" step="any" name="market_price" class="form-control enhanced-input" placeholder="Enter Wholesale Price" required>
+                                                                 <input type="number" step="any" name="special_price" class="form-control enhanced-input" placeholder="Enter Wholesale Price" required>
                                                                  <span class="form-bar"></span>
                                                                  <label class="float-label">Wholesale Price</label>
                                                                  <div class="form-icon">
-                                                                      <i class="fas fa-shopping-cart"></i>
+                                                                      <i class="fas fa-percentage"></i>
                                                                  </div>
                                                                  </div>
                                                             </div>
 
                                                             <div class="col-md-4">
                                                                  <div class="form-group form-default form-static-label enhanced-form-group">
-                                                                 <input type="number" step="any" name="special_price" class="form-control enhanced-input" placeholder="Enter Retail Price" required>
+                                                                 <input type="number" step="any" name="market_price" class="form-control enhanced-input" placeholder="Enter Purchase Price" required>
                                                                  <span class="form-bar"></span>
-                                                                 <label class="float-label">Retail Price</label>
+                                                                 <label class="float-label">Purchase (Market) Price</label>
                                                                  <div class="form-icon">
-                                                                      <i class="fas fa-percentage"></i>
+                                                                      <i class="fas fa-shopping-cart"></i>
                                                                  </div>
                                                                  </div>
                                                             </div>

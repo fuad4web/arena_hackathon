@@ -51,7 +51,7 @@ if (isset($_POST['product'])) {
 
     // sanitize inputs using your helper
     $name          = $getFromU->checkInput(trim($raw['name']));
-    $barcode       = $raw['barcode'] !== null ? $getFromU->checkInput(trim($raw['barcode'])) : null;
+    $barcode       = $raw['barcode'] !== null ? $getFromU->checkInput(trim($raw['barcode'])) : rand(1000000000, 9999999999); // generate random 10-digit barcode if not provided
     $price         = $getFromU->checkInput($raw['price']);
     $special_price = $raw['special_price'] !== null ? $getFromU->checkInput($raw['special_price']) : null;
     $market_price  = $raw['market_price'] !== null ? $getFromU->checkInput($raw['market_price']) : null;

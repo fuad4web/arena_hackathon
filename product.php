@@ -143,19 +143,19 @@ include 'elements/header.php';
                                                                  <!-- Pricing Information -->
                                                                  <div class="pricing-info mb-3">
                                                                       <div class="d-flex justify-content-between align-items-center mb-1">
-                                                                           <span class="text-muted small">Regular Price:</span>
+                                                                           <span class="text-muted small">Selling Price:</span>
                                                                            <span class="fw-bold text-dark">
                                                                                 <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?><?= @number_format($selectProduct?->price, 2, '.', ',') ?>
                                                                            </span>
                                                                       </div>
                                                                       <div class="d-flex justify-content-between align-items-center">
-                                                                           <span class="text-muted small">Retail Price:</span>
+                                                                           <span class="text-muted small">Wholesale Price:</span>
                                                                            <span class="fw-bold text-success">
                                                                                 <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?><?= @number_format($selectProduct?->special_price, 2, '.', ',') ?>
                                                                            </span>
                                                                       </div>
                                                                       <div class="d-flex justify-content-between align-items-center">
-                                                                           <span class="text-muted small">Wholesale Price:</span>
+                                                                           <span class="text-muted small">Purchase Price:</span>
                                                                            <span class="fw-bold text-success">
                                                                                 <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?><?= @number_format($selectProduct?->market_price, 2, '.', ',') ?>
                                                                            </span>

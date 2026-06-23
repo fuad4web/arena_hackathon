@@ -18,7 +18,7 @@ include 'elements/header.php';
                          <div class="row align-items-center">
                               <div class="col-md-8">
                                    <div class="page-header-title">
-                                        <h5 class="m-b-10">Product Purchase Record</h5>
+                                        <h5 class="m-b-10">View and analyze sales records within a selected date range.</h5>
                                         <p class="m-b-0">Welcome to <?= $selectCompanyName ?></p>
                                    </div>
                               </div>
@@ -45,8 +45,8 @@ include 'elements/header.php';
                                    ?>
                                    <div class="card">
                                         <div class="card-header">
-                                             <h3>Product<small>(s)</small> Purchased Record</h3>
-                                             <span>List of all Products Purchased</span>
+                                             <h3>Sales Report</h3>
+                                             <span>View and analyze sales records within a selected date range.</span>
                                              <div class="card-header-right">
                                                   <ul class="list-unstyled card-option">
                                                        <li><i class="fa fa fa-wrench open-card-option"></i></li>

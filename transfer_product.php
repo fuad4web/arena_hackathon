@@ -191,8 +191,8 @@
                             const productImage = product.image || product.product_pics || 'https://via.placeholder.com/80?text=No+Image';
                             
                             productList += `
-                                <div class="product-card col-md-3" data-product-code="${product.code}">
-                                    <input class="form-check-input product-checkbox" type="radio" name="product_code" value="${product.code}" id="product_${product.code}" required>
+                                <div class="product-card col-md-3" data-product-code="${product.barcode}">
+                                    <input class="form-check-input product-checkbox" type="radio" name="product_barcode" value="${product.barcode}" id="product_${product.barcode}" required>
                                     <div class="checkmark"></div>
                                     <div class="product-card-content">
                                         <img src="${productImage}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/80?text=No+Image'">
@@ -258,7 +258,7 @@
     });
     
     // <div class="form-check">
-    //     <input class="form-check-input" type="radio" name="product_code" value="${product.code}" required>
+    //     <input class="form-check-input" type="radio" name="product_barcode" value="${product.barcode}" required>
     //     <label class="form-check-label">
     //         ${product.name} (Available: ${product.quantity})
     //     </label>

@@ -81,10 +81,10 @@
      }
      
      // selctiong all products purchased in descending order
-     $list_my_products = $getFromU->fetch_innerjoin_one_cond('product_purchase', 'customers', 'customer_id', 'user_id', $user_id);
+     $list_my_products = $getFromU->fetch_innerjoin_one_cond_new('product_purchase', 'customers', 'customer_id', 'user_id', $user_id);
 
      // selctiong all products purchased in descending order
-     $list_all_creditors = $getFromU->fetch_innerjoin_one_cond('product_purchase', 'customers', 'customer_id', 'payment_mode', 'creditor');
+     $list_all_creditors = $getFromU->fetch_innerjoin_one_cond_new('product_purchase', 'customers', 'customer_id', 'payment_mode', 'creditor');
 
      // selctiong all expenses in descending order
      $fetch_all_expenses = $getFromU->fetch_innerjoin_desc('expenses', 'user', 'user_id');
@@ -93,7 +93,7 @@
      $mySumTotalProductsSold = $getFromU->sum_two_cond('product_purchase', 'grand_total', 'user_id', $user_id, 'created_at', $cur_date);
      
      // list 250 products under purchase
-     $list_ordered_products = $getFromU->fetch_innerjoin_limit_desc('product_purchase', 'customers', 'customer_id');
+     $list_ordered_products = $getFromU->fetch_innerjoin_limit_desc_new('product_purchase', 'customers', 'customer_id');
 
      // selecting last transaction value
      $my_last_sale = $getFromU->select_last_val('product_purchase', 'trans_code', 'user_id', $user_id);

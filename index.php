@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katron App | Inventory Software</title>
     <!-- Favicon icon -->
-    <link rel="icon" href="https://res.cloudinary.com/ddbk4vtwe/image/upload/v1766391915/IMG-20251222-WA0016-removebg-preview_l5tigj.png" type="image/png">
+    <link rel="icon" href="assets/images/visionary.png" type="image/png">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="assets/css/login.css">
     <!-- Notification.css -->
@@ -33,7 +33,7 @@
         <div class="login-card">
 
             <div class="logo-area">
-                <img src="https://res.cloudinary.com/ddbk4vtwe/image/upload/v1766391915/IMG-20251222-WA0016-removebg-preview_l5tigj.png" alt="Logo">
+                <img src="assets/images/vision.png" alt="Logo">
 
                 <h2><?= $companyName ?></h2>
                 <p>Inventory Management Software</p>

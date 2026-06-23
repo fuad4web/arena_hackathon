@@ -32,7 +32,8 @@
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
     <!-- Favicon icon -->
-    <link rel="icon" href="https://res.cloudinary.com/ddbk4vtwe/image/upload/v1766391915/IMG-20251222-WA0016-removebg-preview_l5tigj.png" type="image/png">
+    <link rel="icon" href="assets/images/visionary.png" type="image/png">
+    <!-- <link rel="icon" href="https://res.cloudinary.com/ddbk4vtwe/image/upload/v1766391915/IMG-20251222-WA0016-removebg-preview_l5tigj.png" type="image/png"> -->
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <!-- waves.css -->

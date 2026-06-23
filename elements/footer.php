@@ -91,12 +91,35 @@
     <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script type="text/javascript">
+        $(function () {
+          function togglePackSize() {
+               const isPack = $('#is_pack').val() === '1';
+
+               $('#pack_size').toggle(isPack);
+
+               $('#pack_size_input')
+                    .prop('required', isPack);
+
+               if (!isPack) {
+                    $('#pack_size_input').val('');
+               }
+          }
+
+          $('#is_pack').on('change', togglePackSize);
+
+          // Run on page load too
+          togglePackSize();
+
+        });
+    </script>   
+        
     <?php
-        $noAvailProds = ($countAvailableProducts / $productsNumber) * 100;
-        $noUnavailProds = ($countUnavailableProducts / $productsNumber) * 100;
+        $noAvailProds = ($countAvailableProducts / $productsNumber) * 100 ?? 0;
+        $noUnavailProds = ($countUnavailableProducts / $productsNumber) * 100 ?? 0;
     ?>
 
-    <script type="text/javascript">
+    <script>
         "use strict";
         setTimeout(function() {
             $(document).ready(function() {
@@ -128,15 +151,6 @@
 
 
         $(document).ready(function() {
-            $('#is_pack').on('change', function () {
-                if ($(this).val() == "1") {
-                    $('#pack_size').show();
-                    $('#pack_size_input').prop('required', true);
-                } else {
-                    $('#pack_size').hide();
-                    $('#pack_size_input').prop('required', false).val('');
-                }
-            });
 
             $('#saveCustomer').on('click', function(e) {
                 e.preventDefault();

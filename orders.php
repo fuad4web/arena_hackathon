@@ -215,9 +215,9 @@
                                                         <div class="form-group">
                                                             <label class="form-label text-muted small mb-1">Sales Type</label>
                                                             <select class="form-control sales_type form-select-lg" id="sales_type">
-                                                                <option value="regular">Regular Price</option>
-                                                                <option value="special">Retail Price</option>
-                                                                <option value="market">Wholesale Price</option>
+                                                                <option value="regular">Selling Price</option>
+                                                                <option value="special">Wholesale Price</option>
+                                                                <option value="market">Purchase Price</option>
                                                             </select>
                                                         </div>
                                                     </div>
