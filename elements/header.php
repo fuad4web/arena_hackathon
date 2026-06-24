@@ -229,9 +229,9 @@
           /* Enhanced File Upload */
           .file-upload-wrapper { position: relative; margin-top: 8px; }
 
-          .file-upload-input { position: absolute; left: -9999px; opacity: 0; }
+          .file-upload-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
 
-          .file-upload-area { border: 2px dashed #dee2e6; border-radius: 8px; padding: 30px 20px; text-align: center; transition: all 0.3s ease; background: #fafbfe; position: relative; cursor: pointer; }
+          .file-upload-area { border: 2px dashed #dee2e6; border-radius: 8px; padding: 30px 20px; text-align: center; transition: all 0.3s ease; background: #fafbfe; position: relative; cursor: pointer; z-index: 1; }
 
           .file-upload-area:hover { border-color: #007bff; background: #f0f4ff; }
 

@@ -1,0 +1,5 @@
+Url: localhost/vision
+
+Login details:
+Email: visionaryminds@gmail.com
+Password: fuskydon

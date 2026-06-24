@@ -93,61 +93,60 @@
 
     <script type="text/javascript">
         $(function () {
-          function togglePackSize() {
-               const isPack = $('#is_pack').val() === '1';
+            function togglePackSize() {
+                const isPack = $('#is_pack').val() === '1';
 
-               $('#pack_size').toggle(isPack);
+                $('#pack_size').toggle(isPack);
 
-               $('#pack_size_input')
-                    .prop('required', isPack);
+                $('#pack_size_input')
+                        .prop('required', isPack);
 
-               if (!isPack) {
-                    $('#pack_size_input').val('');
-               }
-          }
+                if (!isPack) {
+                        $('#pack_size_input').val('');
+                }
+            }
 
-          $('#is_pack').on('change', togglePackSize);
+            $('#is_pack').on('change', togglePackSize);
 
-          // Run on page load too
-          togglePackSize();
-
+            // Run on page load too
+            togglePackSize();
         });
     </script>   
         
     <?php
-        $noAvailProds = ($countAvailableProducts / $productsNumber) * 100 ?? 0;
-        $noUnavailProds = ($countUnavailableProducts / $productsNumber) * 100 ?? 0;
+        // $noAvailProds = ($countAvailableProducts / $productsNumber) * 100 ?? 0;
+        // $noUnavailProds = ($countUnavailableProducts / $productsNumber) * 100 ?? 0;
     ?>
 
     <script>
-        "use strict";
-        setTimeout(function() {
-            $(document).ready(function() {
-                donutChart();
+        // "use strict";
+        // setTimeout(function() {
+        //     $(document).ready(function() {
+        //         donutChart();
 
-                $(window).on('resize', function() {
-                    window.donutChart.redraw();
-                });
+        //         $(window).on('resize', function() {
+        //             window.donutChart.redraw();
+        //         });
 
-            });
+        //     });
 
-            function donutChart() {
-                window.areaChart = Morris.Donut({
-                    element: 'donut-example',
-                    redraw: true,
-                    data: [{
-                            label: "Price of Available Produts <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?>",
-                            value: <?= $sumAvailableProducts ?>
-                        },
-                        {
-                            label: "Price of Pending Produts <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?>",
-                            value: <?= $sumUnavailableProducts ?>
-                        }
-                    ],
-                    colors: ['#FF9F55', '#448AFF']
-                });
-            }
-        }, 350);
+        //     function donutChart() {
+        //         window.areaChart = Morris.Donut({
+        //             element: 'donut-example',
+        //             redraw: true,
+        //             data: [{
+        //                     label: "Price of Available Produts <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?>",
+        //                     value: <?= $sumAvailableProducts ?>
+        //                 },
+        //                 {
+        //                     label: "Price of Pending Produts <?= $getFromU->getCurrencySymbol($selectDefaultCurrency) ?>",
+        //                     value: <?= $sumUnavailableProducts ?>
+        //                 }
+        //             ],
+        //             colors: ['#FF9F55', '#448AFF']
+        //         });
+        //     }
+        // }, 350);
 
 
         $(document).ready(function() {
@@ -343,104 +342,104 @@
     </script>
     
     <script>
-        // Pack size toggle functionality
-        document.getElementById('is_pack').addEventListener('change', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const isPackSelect = document.getElementById('is_pack');
             const packSizeDiv = document.getElementById('pack_size');
             const packSizeInput = document.getElementById('pack_size_input');
-            
-            if (this.value === '1') {
-                packSizeDiv.style.display = 'block';
-                packSizeInput.required = true;
-            } else {
-                packSizeDiv.style.display = 'none';
-                packSizeInput.required = false;
-                packSizeInput.value = '';
+
+            function togglePackSize() {
+                if (!isPackSelect || !packSizeDiv || !packSizeInput) return;
+                const isPack = isPackSelect.value === '1';
+
+                packSizeDiv.style.display = isPack ? 'block' : 'none';
+                packSizeInput.required = isPack;
+
+                if (!isPack) {
+                    packSizeInput.value = '';
+                }
             }
-        });
 
-        // Enhanced file upload functionality
-        const fileUploadInput = document.getElementById('product_pics');
-        const fileUploadArea = document.querySelector('.file-upload-area');
-        const filePreview = document.getElementById('file-preview');
-        const previewImage = document.getElementById('preview-image');
-        const fileName = document.getElementById('file-name');
-        const fileBrowseBtn = document.querySelector('.file-browse-btn');
+            if (isPackSelect) {
+                isPackSelect.addEventListener('change', togglePackSize);
+                togglePackSize();
+            }
 
-        // Click browse button to trigger file input
-        fileBrowseBtn.addEventListener('click', function() {
-            fileUploadInput.click();
-        });
+            const fileUploadInput = document.getElementById('product_pics');
+            const fileUploadArea = document.querySelector('.file-upload-area');
+            const filePreview = document.getElementById('file-preview');
+            const previewImage = document.getElementById('preview-image');
+            const fileName = document.getElementById('file-name');
+            const fileBrowseBtn = document.querySelector('.file-browse-btn');
 
-        // File input change event
-        fileUploadInput.addEventListener('change', function(e) {
-            handleFiles(this.files);
-        });
+            function hideUploadText() {
+                const uploadText = document.querySelector('.file-upload-text');
+                if (uploadText) {
+                    uploadText.style.display = 'none';
+                }
+            }
 
-        // Drag and drop functionality
-        fileUploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('dragover');
-        });
-
-        fileUploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-        });
-
-        fileUploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            fileUploadInput.files = files;
-            handleFiles(files);
-        });
-
-        function handleFiles(files) {
-            if (files.length > 0) {
+            function handleFiles(files) {
+                if (!files || files.length === 0) return;
                 const file = files[0];
-                
-                // Validate file type
+
                 if (!file.type.match('image.*')) {
                     alert('Please select an image file (JPG, PNG, GIF)');
                     return;
                 }
-                
-                // Validate file size (5MB)
+
                 if (file.size > 5 * 1024 * 1024) {
                     alert('File size must be less than 5MB');
                     return;
                 }
-                
-                // Display file name
-                fileName.textContent = file.name;
-                
-                // Display image preview
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewImage.src = e.target.result;
-                    filePreview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-                
-                // Hide upload text
-                document.querySelector('.file-upload-text').style.display = 'none';
+
+                if (fileName) {
+                    fileName.textContent = file.name;
+                }
+
+                if (previewImage && filePreview) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        filePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+                hideUploadText();
             }
-        }
 
-        // Click on upload area to trigger file input
-        fileUploadArea.addEventListener('click', function() {
-            fileUploadInput.click();
+            if (fileUploadInput && fileUploadArea && filePreview && previewImage && fileName && fileBrowseBtn) {
+                fileBrowseBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    fileUploadInput.click();
+                });
+
+                fileUploadInput.addEventListener('change', function() {
+                    handleFiles(this.files);
+                });
+
+                fileUploadArea.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('dragover');
+                });
+
+                fileUploadArea.addEventListener('dragleave', function() {
+                    this.classList.remove('dragover');
+                });
+
+                fileUploadArea.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('dragover');
+                    const files = e.dataTransfer.files;
+                    fileUploadInput.files = files;
+                    handleFiles(files);
+                });
+
+                fileUploadArea.addEventListener('click', function() {
+                    fileUploadInput.click();
+                });
+            }
         });
-
-        const isPackSelect = document.getElementById('is_pack');
-        const packSizeDiv = document.getElementById('pack_size');
-        
-        // Set initial state
-        if (isPackSelect.value === '1') {
-            packSizeDiv.style.display = 'block';
-        } else {
-            packSizeDiv.style.display = 'none';
-        }
     </script>
 
     
